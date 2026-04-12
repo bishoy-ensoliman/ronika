@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ~/projects/ronika-store
+cd ~/projects/ronika
 git pull
 docker build . -t localhost:32000/ronika-store:latest
 docker push localhost:32000/ronika-store:latest
