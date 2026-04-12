@@ -20,4 +20,21 @@ spec:
           ports:
             - containerPort: 3000
               protocol: TCP
+          env:
+            # Pulling from the secret we created
+            - name: RESEND_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ronika-secrets
+                  key: RESEND_API_KEY
+            - name: ORDER_DESTINATION
+              valueFrom:
+                secretKeyRef:
+                  name: ronika-secrets
+                  key: ORDER_DESTINATION
+            # SvelteKit specific envs
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "3000"
       restartPolicy: Always
