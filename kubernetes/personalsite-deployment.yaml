@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ronika-store
+  namespace: ronika
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: ronika-service
+  template:
+    metadata:
+      labels:
+        service: ronika-service
+    spec:
+      containers:
+        - image: localhost:32000/ronika-store:latest
+          name: ronika-service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+      restartPolicy: Always
