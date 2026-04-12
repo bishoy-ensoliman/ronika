@@ -3,6 +3,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+ENV RESEND_API_KEY=temporary_placeholder
+ENV ORDER_DESTINATION=temporary_placeholder
 RUN npm run build
 
 FROM node:20-slim
