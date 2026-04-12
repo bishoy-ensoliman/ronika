@@ -14,7 +14,7 @@ spec:
     - www.ronika.store
     secretName: tls-secret
   rules:
-  - host: www.rokina.store
+  - host: www.ronika.store
     http:
       paths:
       - path: /
