@@ -3,24 +3,28 @@
 	import { cart } from '$lib/cart.svelte';
 	import { elasticOut } from 'svelte/easing';
 	import CartDrawer from '$lib/components/CartDrawer.svelte';
+	import royalcrown from '$lib/assets/royalcrown.jpeg';
+	import elite from '$lib/assets/elite.jpeg';
+	import symphony from '$lib/assets/symphony.jpeg';
+	import velvet from '$lib/assets/velvet.jpeg';
 
 	let isCartOpen = $state(false);
 
 	// State management using Svelte 5 Runes
-	let currentLang = $state('en');
+	let currentLang = $state('ar');
 
 	const translations = {
 		ar: {
 			'nav-collections': 'إصداراتنا',
 			'nav-origin': 'حكايتنا',
-			'hero-title': 'جوهر الشوكولاتة',
-			'hero-subtitle': 'فن الشوكولاتة من أندر المصادر',
+			'hero-title': 'فخامة تذوب.. وقرمشة تأسر الحواس!',
+			'hero-subtitle':
+				'في Ronika Chocolate، لا نصنع مجرد شوكولاتة، بل نصمم لحظات من السعادة الخالصة. تخيل قطعة من الشوكولاتة البلجيكية الغنية، تخفي في قلبها حبة كاملة من (عين الجمل الملكي، أو الكاجو المحمص، أو اللوز المقرمش) ',
+			'hero-subtitle-1':
+				'كل قطعة هي حكاية من التوازن المثالي بين نُعومة الشوكولاتة وقوة المكسرات الفاخرة.',
 			'btn-explore': 'اكتشف المجموعة',
 			'section-title': 'إصدارات خاصة',
 			'section-subtitle': 'قطع مشغولة يدوياً بدقة متناهية',
-			'prod-1-title': 'مجموعة أوبسيديان',
-			'prod-2-title': 'ترافل منتصف الليل',
-			'prod-3-title': 'مجموعة رقائق الذهب',
 			'btn-purchase': 'اقتنيها الآن',
 			'quote-title': 'إبداع',
 			'quote-text': '"نحن لا نصنع مجرد شوكولاتة.. نحن نصيغ المشاعر في قوالب فنية."',
@@ -29,14 +33,14 @@
 		en: {
 			'nav-collections': 'Collections',
 			'nav-origin': 'Our Story',
-			'hero-title': 'The Essence of Chocolate',
-			'hero-subtitle': 'Artisanal Mastery from Rare Origins',
+			'hero-title': 'A luxurious taste that melts away... and a crunch that captivates the senses!',
+			'hero-subtitle':
+				"At Ronika Chocolate, we don't just make chocolate; we design moments of pure joy. Imagine a piece of rich Belgian chocolate, concealing a whole nut (such as a royal walnut, roasted cashew, or crunchy almond) at its heart.",
+			'hero-subtitle-1':
+				'Each piece is a tale of the perfect balance between the smoothness of chocolate and the strength of sumptuous nuts.',
 			'btn-explore': 'Explore Collection',
 			'section-title': 'Limited Editions',
 			'section-subtitle': 'Hand-crafted pieces with absolute precision',
-			'prod-1-title': 'Obsidian Collection',
-			'prod-2-title': 'Midnight Truffles',
-			'prod-3-title': 'Gold Leaf Set',
 			'btn-purchase': 'Purchase Now',
 			'quote-title': "The Chef 's Touch",
 			'quote-text': '"We do not make simple chocolate.. We mold emotions into artistic forms."',
@@ -54,18 +58,60 @@
 	// Example product data
 	const products = [
 		{
-			id: 'obsidian-01',
-			name: 'Obsidian Collection',
-			price: 4200,
-			image:
-				'https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&q=80&w=800'
+			id: 'royalcrown',
+			name: 'The Royal Crown Collection 👑',
+			price: 899,
+			description:
+				"لعشاق الفخامة والطعم اللي ملوش مثيل.. نقدم لكم كوليكشن 'التاج الملكي' من Ronika Chocolate ✨<br/>57 قطعة من الفخامة.. في علبة واحدة! 👑✨<br/>مزيج ساحر بياخدك في رحلة تذوق استثنائية؛ نعومة الشوكولاتة الغنية اللي بتدوب من أول قطمة، متحضنة بقرمشة أربع أنواع من المكسرات الفاخرة المحمصة بعناية (عين جمل، لوز، كاجو، وبندق). كل قطعة معمولة بحب عشان تعدل مزاجك وتليق بمناسباتك الغالية. 🍫🌰",
+			image: royalcrown
 		},
 		{
-			id: 'midnight-02',
-			name: 'Midnight Truffles',
-			price: 5800,
-			image:
-				'https://images.unsplash.com/photo-1526081347589-7fa3cb41b4b2?auto=format&fit=crop&q=80&w=800'
+			id: 'velvet',
+			name: 'Velvet Harmony Collection ✨🤍🖤',
+			price: 750,
+			description:
+				"عالم من التناغم.. يجمع بين سحر الشوكولاتة وقوة المكسرات! 🍫🥜<br/><br/>استمتع بتجربة فريدة مع مجموعة 'التناغم المخملي' الجديدة من Ronika Chocolate. علبة غنية تضم 64 قطعة صُممت لتأخذك في رحلة بين عالمين:<br/><br/>⚪ عالم الشوكولاتة البيضاء: بطعمها الكريمي الغني الذي يذوب بلطف، مع ميكس مكسرات (لوز، كاجو، بندق، وعين جمل) يضيف لمسة من القرمشة الساحرة.<br/>⚫ عالم الشوكولاتة الداكنة: لعشاق الطعم الأصلي والقوي، بتركيزها الغني وفوائدها التي تجتمع مع أجود حبات المكسرات المحمصة بعناية.<br/><br/>64 لحظة من السعادة الخالصة في علبة واحدة، مثالية لتجمعاتكم العائلية، هداياكم الراقية، أو لتدلل بها نفسك بعد يوم طويل. توازن مثالي بين حلاوة الوايت شوكلت وفخامة الدارك شوكلت مع قرمشة المكسرات التي لا تُقاوم.<br/><br/>🎁 Ronika Chocolate.. المزيج الذي يرضي جميع الحواس.",
+			image: velvet
+		},
+		{
+			id: 'elite',
+			name: 'Elite Edition Collection ✨🍫',
+			price: 450,
+			description:
+				"12 قطعة من السعادة المكثفة.. حيث يلتقي الدلال بالفخامة! 👑<br/><br/>نقدم لكم 'إصدار النخبة' من Ronika Chocolate. علبة صُممت خصيصاً لمن يبحثون عن التميز في كل قطمة.<br/><br/>تخيل مزيجاً أسطورياً يجمع بين نعومة كريمة الكيندر الغنية التي تذوب في الفم، مع قرمشة أفخر أنواع المكسرات المحمصة. 12 قطعة من الشوكولاتة الفاخرة، كل واحدة منها هي تحفة فنية مغطاة بلمسات ذهبية تعكس رقي اختيارك.<br/><br/>سواء كانت مكافأة لنفسك بعد يوم طويل، أو هدية تعبر بها عن تقديرك لشخص غالي، 'إصدار النخبة' هو العنوان المثالي للذوق الرفيع.<br/><br/><br/>Ronika Chocolate..<br/> لأنك تستحق النخبة ✨",
+			image: elite
+		},
+		{
+			id: 'symphony-01',
+			name: 'The Flavor Symphony (Lotus) 🎶🍫',
+			price: 750,
+			description:
+				'64 قطعة من السعادة.. نكهات تأسر الحواس! ✨<br/><br/>لأنك تستحق تجربة تذوق غير عادية، جمعنا لك في Ronika Chocolate أشهر ثلاث نكهات عالمية في كوليكشن واحد ضخم. 64 قطعة من الشوكولاتة الفاخرة المحشوة بأغنى المكونات:<br/><br/>زبدة اللوتس الأصلية: لعشاق الطعم المكرمل مع قرمشة البسكويت الشهيرة.<br/><br/>البيستاشيو (الفستق) الفاخر: طعم غني وكريمي يأخذك إلى عالم آخر من الفخامة.<br/><br/>كريمة الكيندر الساحرة: الدلال الذي يذوب ببطء ليمنحك سعادة لا تُوصف.<br/><br/>كل قطعة مغلفة بعناية لتناسب تجمعاتكم السعيدة أو لتكون الهدية الأرقى لمن تحبون.<br/>Ronika Chocolate.. المذاق الذي لا يُنسى.',
+			image: symphony
+		},
+		{
+			id: 'symphony-02',
+			name: 'The Flavor Symphony (Kinder) 🎶🍫',
+			price: 850,
+			description:
+				'64 قطعة من السعادة.. نكهات تأسر الحواس! ✨<br/><br/>لأنك تستحق تجربة تذوق غير عادية، جمعنا لك في Ronika Chocolate أشهر ثلاث نكهات عالمية في كوليكشن واحد ضخم. 64 قطعة من الشوكولاتة الفاخرة المحشوة بأغنى المكونات:<br/><br/>زبدة اللوتس الأصلية: لعشاق الطعم المكرمل مع قرمشة البسكويت الشهيرة.<br/><br/>البيستاشيو (الفستق) الفاخر: طعم غني وكريمي يأخذك إلى عالم آخر من الفخامة.<br/><br/>كريمة الكيندر الساحرة: الدلال الذي يذوب ببطء ليمنحك سعادة لا تُوصف.<br/><br/>كل قطعة مغلفة بعناية لتناسب تجمعاتكم السعيدة أو لتكون الهدية الأرقى لمن تحبون.<br/>Ronika Chocolate.. المذاق الذي لا يُنسى.',
+			image: symphony
+		},
+		{
+			id: 'symphony-03',
+			name: 'The Flavor Symphony (Pistachio) 🎶🍫',
+			price: 999,
+			description:
+				'64 قطعة من السعادة.. نكهات تأسر الحواس! ✨<br/><br/>لأنك تستحق تجربة تذوق غير عادية، جمعنا لك في Ronika Chocolate أشهر ثلاث نكهات عالمية في كوليكشن واحد ضخم. 64 قطعة من الشوكولاتة الفاخرة المحشوة بأغنى المكونات:<br/><br/>زبدة اللوتس الأصلية: لعشاق الطعم المكرمل مع قرمشة البسكويت الشهيرة.<br/><br/>البيستاشيو (الفستق) الفاخر: طعم غني وكريمي يأخذك إلى عالم آخر من الفخامة.<br/><br/>كريمة الكيندر الساحرة: الدلال الذي يذوب ببطء ليمنحك سعادة لا تُوصف.<br/><br/>كل قطعة مغلفة بعناية لتناسب تجمعاتكم السعيدة أو لتكون الهدية الأرقى لمن تحبون.<br/>Ronika Chocolate.. المذاق الذي لا يُنسى.',
+			image: symphony
+		},
+		{
+			id: 'symphony-04',
+			name: 'The Flavor Symphony (Mix) 🎶🍫',
+			price: 950,
+			description:
+				'64 قطعة من السعادة.. نكهات تأسر الحواس! ✨<br/><br/>لأنك تستحق تجربة تذوق غير عادية، جمعنا لك في Ronika Chocolate أشهر ثلاث نكهات عالمية في كوليكشن واحد ضخم. 64 قطعة من الشوكولاتة الفاخرة المحشوة بأغنى المكونات:<br/><br/>زبدة اللوتس الأصلية: لعشاق الطعم المكرمل مع قرمشة البسكويت الشهيرة.<br/><br/>البيستاشيو (الفستق) الفاخر: طعم غني وكريمي يأخذك إلى عالم آخر من الفخامة.<br/><br/>كريمة الكيندر الساحرة: الدلال الذي يذوب ببطء ليمنحك سعادة لا تُوصف.<br/><br/>كل قطعة مغلفة بعناية لتناسب تجمعاتكم السعيدة أو لتكون الهدية الأرقى لمن تحبون.<br/>Ronika Chocolate.. المذاق الذي لا يُنسى.',
+			image: symphony
 		}
 	];
 </script>
@@ -116,7 +162,8 @@
 	<section class="hero">
 		{#key currentLang}
 			<h1 class="hero-title">{t['hero-title']}</h1>
-			<p class="hero-subtitle">{t['hero-subtitle']}</p>
+			<p class="hero-subtitle max-w-2xl">{t['hero-subtitle']}</p>
+			<p class="hero-subtitle max-w-2xl">{t['hero-subtitle-1']}</p>
 			<a href="#collections" class="btn-gold hero-btn">{t['btn-explore']}</a>
 		{/key}
 	</section>
@@ -132,6 +179,9 @@
 				<div class="product-card">
 					<div class="product-image" style="background-image: url({product.image})"></div>
 					<h3>{product.name}</h3>
+					<br />
+					<p>{@html product.description}</p>
+					<br />
 					<p class="price">EGP {product.price}</p>
 
 					<button
