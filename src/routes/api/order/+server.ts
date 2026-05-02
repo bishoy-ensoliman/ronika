@@ -3,6 +3,7 @@ import { json } from '@sveltejs/kit';
 import { Resend } from 'resend';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { Locale, OrderRequest } from '$lib/types';
+import { cities, cityCodes } from '$lib/data/cities';
 
 function escapeHtml(s: string): string {
 	return s
@@ -18,8 +19,14 @@ const emailCopy: Record<
 	{
 		subject: string;
 		customer: string;
+		email: string;
 		mobile: string;
-		address: string;
+		city: string;
+		area: string;
+		street: string;
+		buildingApt: string;
+		instructions: string;
+		delivery: string;
 		selection: string;
 		total: string;
 		qty: string;
@@ -30,8 +37,14 @@ const emailCopy: Record<
 	ar: {
 		subject: 'طلب جديد',
 		customer: 'العميل',
+		email: 'البريد الإلكتروني',
 		mobile: 'الموبايل',
-		address: 'العنوان',
+		city: 'المدينة',
+		area: 'المنطقة',
+		street: 'الشارع',
+		buildingApt: 'المبنى / الشقة',
+		instructions: 'تعليمات التوصيل',
+		delivery: 'تفاصيل التوصيل',
 		selection: 'المختارات',
 		total: 'الإجمالي',
 		qty: 'الكمية',
@@ -41,8 +54,14 @@ const emailCopy: Record<
 	en: {
 		subject: 'New Order',
 		customer: 'Customer',
+		email: 'Email',
 		mobile: 'Mobile',
-		address: 'Address',
+		city: 'City',
+		area: 'Area',
+		street: 'Street',
+		buildingApt: 'Building / Apt',
+		instructions: 'Delivery Instructions',
+		delivery: 'Delivery Details',
 		selection: 'Selection',
 		total: 'Total',
 		qty: 'Qty',
@@ -61,21 +80,35 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	const { formData, cartItems } = body;
 	const rawLocale = body.locale;
-	const locale: Locale = rawLocale === 'en' || rawLocale === 'ar' ? rawLocale : 'ar';
+	const locale: Locale = rawLocale === 'en' || rawLocale === 'ar' ? rawLocale : 'en';
 	const copy = emailCopy[locale];
 
 	const mobileRegex = /^01[0125][0-9]{8}$/;
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 	if (
-		!formData?.name ||
+		!formData ||
 		typeof formData.name !== 'string' ||
 		formData.name.trim().length < 3 ||
 		formData.name.length > 200 ||
-		!formData?.mobile ||
-		!mobileRegex.test(formData.mobile) ||
-		!formData?.address ||
-		typeof formData.address !== 'string' ||
-		formData.address.trim().length < 10 ||
-		formData.address.length > 500
+		typeof formData.email !== 'string' ||
+		!emailRegex.test(formData.email.trim()) ||
+		formData.email.length > 200 ||
+		typeof formData.mobile !== 'string' ||
+		!mobileRegex.test(formData.mobile.trim()) ||
+		typeof formData.city !== 'string' ||
+		!cityCodes.has(formData.city) ||
+		typeof formData.area !== 'string' ||
+		formData.area.trim().length < 2 ||
+		formData.area.length > 200 ||
+		typeof formData.street !== 'string' ||
+		formData.street.trim().length < 2 ||
+		formData.street.length > 200 ||
+		typeof formData.buildingApt !== 'string' ||
+		formData.buildingApt.trim().length < 2 ||
+		formData.buildingApt.length > 100 ||
+		typeof formData.instructions !== 'string' ||
+		formData.instructions.length > 500
 	) {
 		return json({ success: false, error: 'Invalid form data' }, { status: 400 });
 	}
@@ -97,8 +130,9 @@ export const POST: RequestHandler = async ({ request }) => {
 		return json({ success: false, error: 'Cart is empty or invalid' }, { status: 400 });
 	}
 
-	// Recompute total server-side — ignore client-supplied value
 	const computedTotal = validItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+	const cityLabel = cities.find((c) => c.code === formData.city)?.name[locale] ?? formData.city;
 
 	const itemsHtml = validItems
 		.map(
@@ -109,6 +143,10 @@ export const POST: RequestHandler = async ({ request }) => {
         </div>`
 		)
 		.join('');
+
+	const instructionsHtml = formData.instructions.trim()
+		? `<p><strong>${escapeHtml(copy.instructions)}:</strong> ${escapeHtml(formData.instructions)}</p>`
+		: '';
 
 	try {
 		const { data, error } = await resend.emails.send({
@@ -121,9 +159,15 @@ export const POST: RequestHandler = async ({ request }) => {
                     <p style="text-transform: uppercase; font-size: 10px; letter-spacing: 2px; color: #8e7341; text-align: center;">${escapeHtml(copy.subject)}</p>
 
                     <div style="margin-top: 30px;">
+                        <h3 style="color: #1a0f0a; border-bottom: 2px solid #c5a059; padding-bottom: 10px;">${escapeHtml(copy.delivery)}</h3>
                         <p><strong>${escapeHtml(copy.customer)}:</strong> ${escapeHtml(formData.name)}</p>
-                        <p><strong>${escapeHtml(copy.mobile)}:</strong> ${escapeHtml(formData.mobile)}</p>
-                        <p><strong>${escapeHtml(copy.address)}:</strong> ${escapeHtml(formData.address)}</p>
+                        <p><strong>${escapeHtml(copy.email)}:</strong> ${escapeHtml(formData.email)}</p>
+                        <p><strong>${escapeHtml(copy.mobile)}:</strong> +20 ${escapeHtml(formData.mobile)}</p>
+                        <p><strong>${escapeHtml(copy.city)}:</strong> ${escapeHtml(cityLabel)}</p>
+                        <p><strong>${escapeHtml(copy.area)}:</strong> ${escapeHtml(formData.area)}</p>
+                        <p><strong>${escapeHtml(copy.street)}:</strong> ${escapeHtml(formData.street)}</p>
+                        <p><strong>${escapeHtml(copy.buildingApt)}:</strong> ${escapeHtml(formData.buildingApt)}</p>
+                        ${instructionsHtml}
                     </div>
 
                     <div style="margin-top: 30px; padding: 20px; background-color: #fdfaf4;">

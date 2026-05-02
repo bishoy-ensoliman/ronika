@@ -18,14 +18,19 @@ export interface CartItem extends Product {
 	quantity: number;
 }
 
-export interface OrderFormData {
+export interface CheckoutFormData {
 	name: string;
+	email: string;
 	mobile: string;
-	address: string;
+	city: string;
+	area: string;
+	street: string;
+	buildingApt: string;
+	instructions: string;
 }
 
 export interface OrderRequest {
-	formData: OrderFormData;
+	formData: CheckoutFormData;
 	cartItems: CartItem[];
 	total: number;
 	locale: Locale;

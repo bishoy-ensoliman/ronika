@@ -1,9 +1,13 @@
 :root {
-	--bg-color: #0d0d0d;
-	--chocolate-dark: #1a0f0a;
-	--gold: #c5a059;
-	--gold-dim: #8e7341;
-	--text-light: #e5e5e5;
+	--bg: #faf6ee;
+	--bg-soft: #f4ecd8;
+	--bg-card: #ffffff;
+	--gold: #c9a567;
+	--gold-dark: #a98842;
+	--gold-soft: #ead8b6;
+	--brown: #6f4720;
+	--brown-dark: #3d2812;
+	--text-muted: #8a7660;
 	--serif: var(--font-serif);
 	--sans: var(--font-sans);
 	--arabic: var(--font-arabic);
@@ -11,8 +15,8 @@
 
 body {
 	margin: 0;
-	background-color: var(--bg-color);
-	color: var(--text-light);
+	background-color: var(--bg);
+	color: var(--brown-dark);
 	font-family: var(--sans);
 	font-weight: 400;
 	line-height: 1.65;

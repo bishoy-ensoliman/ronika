@@ -1,9 +1,10 @@
 <script lang="ts">
-	import '../app.css';
 	import './layout.css';
+	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { locale } from '$lib/i18n';
-	import CartDrawer from '$lib/components/CartDrawer.svelte';
+	import SiteHeader from '$lib/components/SiteHeader.svelte';
+	import SiteFooter from '$lib/components/SiteFooter.svelte';
 
 	let { children } = $props();
 
@@ -14,5 +15,11 @@
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
-<CartDrawer />
-{@render children()}
+
+<div class="flex min-h-screen flex-col bg-[--bg] text-[--brown-dark]">
+	<SiteHeader />
+	<main class="flex-1">
+		{@render children()}
+	</main>
+	<SiteFooter />
+</div>
