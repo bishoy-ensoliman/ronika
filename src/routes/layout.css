@@ -2,6 +2,13 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
+@theme {
+	--font-serif: 'Playfair Display', Georgia, serif;
+	--font-sans: 'Inter', system-ui, sans-serif;
+	--font-display: 'Playfair Display', Georgia, serif;
+	--font-arabic: 'Tajawal', 'Segoe UI', system-ui, sans-serif;
+}
+
 /* Change from Unsplash URLs to local paths */
 .img-1 {
 	background-image: url('https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&q=80&w=800');
@@ -14,7 +21,6 @@
 }
 
 .hero {
-	/* ... other styles ... */
 	background-image:
 		linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/hero-bg.jpg');
 }
@@ -35,109 +41,6 @@
 	z-index: 10;
 }
 
-nav {
-	display: flex;
-	justify-content: space-between;
-	padding: 2rem 4%;
-	position: absolute;
-	width: 100%;
-	box-sizing: border-box;
-	z-index: 50;
-}
-
-.logo {
-	font-family: var(--serif);
-	font-size: 2rem;
-	color: var(--gold);
-	letter-spacing: 0.5rem;
-}
-
-.lang-switch {
-	background: transparent;
-	border: 1px solid var(--gold-dim);
-	color: var(--gold);
-	padding: 6px 15px;
-	cursor: pointer;
-	font-size: 0.7rem;
-}
-
-.hero {
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background:
-		linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-		url('https://images.unsplash.com/photo-1548907040-4baa42d10919?q=80&w=2000');
-	background-size: cover;
-	background-position: center;
-	text-align: center;
-}
-
-.hero-title {
-	font-family: var(--serif);
-	font-size: clamp(3rem, 10vw, 6rem);
-	font-weight: 300;
-	animation: fadeInUp 1s forwards;
-}
-
-[lang='ar'] .hero-title {
-	font-family: var(--arabic-serif);
-}
-
-.btn-gold {
-	border: 1px solid var(--gold);
-	color: var(--gold);
-	background: transparent;
-	padding: 12px 30px;
-	text-transform: uppercase;
-	letter-spacing: 0.2rem;
-	cursor: pointer;
-	transition: 0.3s;
-}
-
-.btn-gold:hover {
-	background: var(--gold);
-	color: var(--bg-color);
-}
-
-.grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-	gap: 2rem;
-	padding: 0 4% 100px;
-}
-
-.product-card {
-	background: var(--chocolate-dark);
-	padding: 20px;
-	text-align: center;
-	border: 1px solid rgba(197, 160, 89, 0.1);
-}
-
-@keyframes fadeInUp {
-	from {
-		opacity: 0;
-		transform: translateY(20px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-:root {
-	--bg-color: #0d0d0d;
-	--chocolate-dark: #1a0f0a;
-	--gold: #c5a059;
-	--gold-dim: #8e7341;
-	--text-light: #e5e5e5;
-	--serif: 'Cormorant Garamond', serif;
-	--sans: 'Montserrat', sans-serif;
-	--arabic-serif: 'Amiri', serif;
-}
-
 * {
 	margin: 0;
 	padding: 0;
@@ -145,14 +48,9 @@ nav {
 }
 
 body {
-	background-color: var(--bg-color);
-	color: var(--text-light);
-	font-family: var(--sans);
 	overflow-x: hidden;
-	line-height: 1.6;
 }
 
-/* Luxury Grain Overlay */
 body::before {
 	content: '';
 	position: fixed;
@@ -168,19 +66,22 @@ body::before {
 
 /* Navigation */
 nav {
-	padding: 2rem 4%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding: 2rem 4%;
 	position: absolute;
 	width: 100%;
+	box-sizing: border-box;
 	z-index: 100;
 }
 
 .logo {
 	font-family: var(--serif);
 	font-size: 2rem;
-	letter-spacing: 0.5rem;
+	font-weight: 500;
+	letter-spacing: 0.4rem;
+	line-height: 1;
 	text-transform: uppercase;
 	color: var(--gold);
 }
@@ -194,8 +95,10 @@ nav {
 	color: var(--text-light);
 	text-decoration: none;
 	margin: 0 1rem;
-	font-size: 0.8rem;
-	letter-spacing: 0.2rem;
+	font-size: 0.75rem;
+	font-weight: 400;
+	letter-spacing: 0.18rem;
+	line-height: 1;
 	text-transform: uppercase;
 	transition: color 0.3s ease;
 }
@@ -208,6 +111,9 @@ nav {
 	cursor: pointer;
 	font-family: var(--sans);
 	font-size: 0.7rem;
+	font-weight: 500;
+	letter-spacing: 0.18rem;
+	line-height: 1;
 	text-transform: uppercase;
 	transition: 0.3s;
 	margin: 0 1rem;
@@ -230,9 +136,10 @@ nav {
 
 .hero-title {
 	font-family: var(--serif);
-	font-size: clamp(2.5rem, 8vw, 6rem);
-	font-weight: 300;
-	font-style: italic;
+	font-size: clamp(2.75rem, 8vw, 5.5rem);
+	font-weight: 400;
+	letter-spacing: -0.01em;
+	line-height: 1.05;
 	margin-bottom: 1rem;
 	opacity: 0;
 	transform: translateY(30px);
@@ -240,9 +147,12 @@ nav {
 }
 
 .hero-subtitle {
-	letter-spacing: 0.4rem;
-	text-transform: uppercase;
+	font-family: var(--sans);
 	font-size: 0.9rem;
+	font-weight: 500;
+	letter-spacing: 0.35rem;
+	line-height: 1.4;
+	text-transform: uppercase;
 	color: var(--gold);
 	opacity: 0;
 	animation: fadeIn 1.5s forwards 1s;
@@ -262,14 +172,24 @@ nav {
 
 .section-header h2 {
 	font-family: var(--serif);
-	font-size: 3rem;
-	font-weight: 300;
+	font-size: clamp(2rem, 4.5vw, 3rem);
+	font-weight: 500;
+	letter-spacing: -0.005em;
+	line-height: 1.15;
+}
+
+.section-desc {
+	font-family: var(--sans);
+	font-size: 0.95rem;
+	font-weight: 400;
+	line-height: 1.65;
 }
 
 .grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 	gap: 40px;
+	padding: 0 4% 100px;
 }
 
 .product-card {
@@ -303,13 +223,20 @@ nav {
 
 .product-card h3 {
 	font-family: var(--serif);
-	font-size: 1.5rem;
+	font-size: 1.375rem;
+	font-weight: 500;
+	letter-spacing: 0.02em;
+	line-height: 1.3;
 	margin-bottom: 10px;
 }
 
 .price {
+	font-family: var(--sans);
+	font-weight: 500;
+	letter-spacing: 0.05rem;
+	line-height: 1.4;
 	color: var(--gold);
-	letter-spacing: 0.1rem;
+	font-feature-settings: 'tnum';
 }
 
 .btn-gold {
@@ -318,10 +245,15 @@ nav {
 	padding: 12px 30px;
 	border: 1px solid var(--gold);
 	color: var(--gold);
+	background: transparent;
 	text-decoration: none;
-	text-transform: uppercase;
+	font-family: var(--sans);
 	font-size: 0.7rem;
-	letter-spacing: 0.2rem;
+	font-weight: 500;
+	letter-spacing: 0.22rem;
+	line-height: 1;
+	text-transform: uppercase;
+	cursor: pointer;
 	transition: all 0.3s ease;
 }
 
@@ -338,18 +270,41 @@ nav {
 	}
 }
 
-[lang='ar'] .hero-title,
-[lang='ar'] .hero-subtitle {
-	font-family: var(--arabic-serif);
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Arabic-script overrides — script-dependent, not direction-dependent */
+:lang(ar) .hero-title {
 	font-style: normal;
+	font-size: clamp(3rem, 9vw, 6rem);
+}
+
+:lang(ar) .btn-gold,
+:lang(ar) .nav-links a,
+:lang(ar) .lang-switch,
+:lang(ar) footer {
+	text-transform: none;
+	letter-spacing: 0;
 }
 
 footer {
 	padding: 60px 4%;
 	border-top: 1px solid rgba(197, 160, 89, 0.2);
 	text-align: center;
+	font-family: var(--sans);
 	font-size: 0.7rem;
-	letter-spacing: 0.2rem;
+	font-weight: 400;
+	letter-spacing: 0.18rem;
+	line-height: 1.5;
+	text-transform: uppercase;
 	color: var(--gold-dim);
 }
 

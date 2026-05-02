@@ -4,9 +4,9 @@
 	--gold: #c5a059;
 	--gold-dim: #8e7341;
 	--text-light: #e5e5e5;
-	--serif: 'Cormorant Garamond', serif;
-	--sans: 'Montserrat', sans-serif;
-	--arabic-serif: 'Amiri', serif;
+	--serif: var(--font-serif);
+	--sans: var(--font-sans);
+	--arabic: var(--font-arabic);
 }
 
 body {
@@ -14,5 +14,15 @@ body {
 	background-color: var(--bg-color);
 	color: var(--text-light);
 	font-family: var(--sans);
-	line-height: 1.6;
+	font-weight: 400;
+	line-height: 1.65;
+}
+
+:lang(ar) {
+	font-family: var(--arabic);
+	font-weight: 500;
+}
+
+:lang(ar) body {
+	line-height: 1.85;
 }
