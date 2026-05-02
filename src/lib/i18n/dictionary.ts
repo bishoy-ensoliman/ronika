@@ -18,16 +18,16 @@ export const dictionary = {
 		ar: 'English'
 	},
 	'hero.title': {
-		en: 'A luxurious taste that melts away... and a crunch that captivates the senses!',
+		en: 'A taste that melts. A crunch that lingers.',
 		ar: 'فخامة تذوب.. وقرمشة تأسر الحواس!'
 	},
 	'hero.subtitle': {
-		en: "At Ronika Chocolate, we don't just make chocolate; we design moments of pure joy...",
-		ar: 'في Ronika Chocolate، لا نصنع مجرد شوكولاتة، بل نصمم لحظات من السعادة الخالصة...'
+		en: "We don't make chocolate. We craft the moments around it.",
+		ar: 'لا نصنع الشوكولاتة، بل نصنع اللحظة التي تحتضنها.'
 	},
 	'hero.subtitle2': {
-		en: 'Each piece is a tale of the perfect balance...',
-		ar: 'كل قطعة هي حكاية من التوازن المثالي...'
+		en: 'Every piece, a quiet study in balance.',
+		ar: 'كل قطعة، حكاية هادئة في التوازن.'
 	},
 	'hero.cta': {
 		en: 'Explore Collection',
