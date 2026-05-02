@@ -1,10 +1,10 @@
 name: ci deploy production
 
 concurrency:
-    group: production
-    cancel-in-progress: true
+  group: production
+  cancel-in-progress: true
 
-on: 
+on:
   push:
     branches:
       - main
@@ -14,7 +14,7 @@ on:
 
 jobs:
   deploy:
-    name: "Deploy to production"
+    name: 'Deploy to production'
     environment: production
     runs-on: ubuntu-latest
     steps:

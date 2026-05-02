@@ -6,21 +6,21 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: public
     nginx.ingress.kubernetes.io/rewrite-target: /
-    cert-manager.io/cluster-issuer: "letsencrypt"
-    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    cert-manager.io/cluster-issuer: 'letsencrypt'
+    nginx.ingress.kubernetes.io/from-to-www-redirect: 'true'
 spec:
   tls:
-  - hosts:
-    - www.ronika.store
-    secretName: tls-secret
+    - hosts:
+        - www.ronika.store
+      secretName: tls-secret
   rules:
-  - host: www.ronika.store
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: ronika-service
-            port: 
-              number: 3000
+    - host: www.ronika.store
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ronika-service
+                port:
+                  number: 3000

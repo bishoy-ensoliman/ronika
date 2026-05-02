@@ -34,7 +34,7 @@ spec:
                   key: ORDER_DESTINATION
             # SvelteKit specific envs
             - name: NODE_ENV
-              value: "production"
+              value: 'production'
             - name: PORT
-              value: "3000"
+              value: '3000'
       restartPolicy: Always
