@@ -1,8 +1,8 @@
 import type { Locale, Direction } from '$lib/types';
 import { dictionary } from '$lib/i18n/dictionary';
 
-// SSR renders 'ar' by default; client hydrates from localStorage. Acceptable flash for v1.
-let current = $state<Locale>('ar');
+// SSR renders 'en' by default; client hydrates from localStorage. Acceptable flash for v1.
+let current = $state<Locale>('en');
 
 if (typeof window !== 'undefined') {
 	const stored = localStorage.getItem('ronika_locale');
